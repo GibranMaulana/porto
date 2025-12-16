@@ -2,10 +2,11 @@
 
 import HomeHero from "@/sections/HomeHero";
 import About from "@/sections/About";
+import Preloader from "@/components/Preloader";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-
+   //harusnya font
    const [isPageLoaded, setIsPageLoaded] = useState(false);
 
       useEffect(() => {
@@ -26,6 +27,7 @@ export default function Home() {
 
    return ( 
       <>
+         <Preloader isPageLoaded={isPageLoaded} />
          <HomeHero isPageLoaded={isPageLoaded} />
          <About />
       </>
