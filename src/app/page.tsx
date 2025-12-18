@@ -4,32 +4,51 @@ import HomeHero from "@/sections/HomeHero";
 import About from "@/sections/About";
 import Preloader from "@/components/Preloader";
 import { useEffect, useState } from "react";
+import Header from "@/components/Header";
 
 export default function Home() {
-   //harusnya font
-   const [isPageLoaded, setIsPageLoaded] = useState(false);
+   //NOTE: 1=masih blank, 2=preloader muncul, 3=content muncul 
+   const [isPageLoaded, setIsPageLoaded] = useState(1);
 
       useEffect(() => {
-         const handleLoad = () => {
-            setIsPageLoaded(true);
-         }
+         const startLoadingStage = async () => {
 
-         if(document.readyState == "complete") {
-            handleLoad();
-         } else {
-            window.addEventListener('load', handleLoad)
-         }
+            await document.fonts.ready;
+            setTimeout(() => {
+               setIsPageLoaded(2);
+            }, 500)
 
-         return () => {
-            window.removeEventListener('load', handleLoad)
-         }
+            const handleContentLoaded = () => {
+               setTimeout(() => {
+                  setIsPageLoaded(3);
+               }, 3000);
+            };
+
+            if(document.readyState == "complete") {
+               handleContentLoaded();
+            } else {
+               window.addEventListener('load', handleContentLoaded);
+            }
+   
+            return () => {
+               window.removeEventListener('load', handleContentLoaded);
+            }
+         };
+         
+         startLoadingStage();
+
       }, [])
 
    return ( 
       <>
          <Preloader isPageLoaded={isPageLoaded} />
-         <HomeHero isPageLoaded={isPageLoaded} />
-         <About />
+         <Header isPageLoaded={isPageLoaded} />
+         {isPageLoaded > 2 && (
+            <>
+               <HomeHero isPageLoaded={isPageLoaded} />
+               <About />
+            </>
+         )}
       </>
    );
 }

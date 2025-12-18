@@ -3,15 +3,19 @@ import { easeIn, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface HomeHeroProps {
-   isPageLoaded: boolean
+   isPageLoaded: number
 }
 
 export default function HomeHero({isPageLoaded}: HomeHeroProps) {
 
    const titleContainer = {
-      hidden: { opacity: 0},
+      hidden: { 
+         opacity: 0,
+         display: "none"
+      },
       visible: { 
          opacity: 1,
+         display: "",
          transition: {
             staggerChildren: 0.2,
             delayChildren: 0.3

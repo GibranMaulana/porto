@@ -30,7 +30,6 @@ export default function RootLayout({
         className={`${manrope.variable} ${spaceMono.variable} antialiased px-10`}
       >
          <SmoothScrolling>
-            <Header />
             {children}
          </SmoothScrolling>
       </body>

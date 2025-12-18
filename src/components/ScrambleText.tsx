@@ -1,16 +1,16 @@
 'use client';
 import { useRef, useState, useEffect, useCallback } from "react";
 
-const CYCLES_PER_LETTER = 2; // How many "scrambles" before fixing a letter
-const SHUFFLE_SPEED = 30; // Milliseconds between updates (lower = faster)
+const CYCLES_PER_LETTER = 2; 
+const SHUFFLE_SPEED = 40; 
 const CHARS = "!@#$%^&*():{};|,.<>/?ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 interface ScrambleTextProps {
   text: string;
   className?: string;
-  autoStart?: boolean; // Start once on mount (still respects stop)
-  active?: boolean; // If true, keep scrambling until you set it false
-  hover?: boolean; // Enable/disable hover triggers
+  autoStart?: boolean; 
+  active?: boolean; 
+  hover?: boolean; 
 }
 
 export const ScrambleText = ({
@@ -23,69 +23,72 @@ export const ScrambleText = ({
   const [displayText, setDisplayText] = useState(text);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const stopScramble = useCallback(() => {
+  const clear = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-    setDisplayText(text);
-  }, [text]);
+  }, []);
 
-  const scramble = useCallback(() => {
+  const scrambleOnce = useCallback(() => {
     let pos = 0;
 
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    clear();
 
     intervalRef.current = setInterval(() => {
       const scrambled = text
         .split("")
         .map((char, index) => {
           if (char === " ") return " ";
-
-          // If active, never "resolve" characters permanently.
-          // This keeps the text visibly scrambling forever.
-          if (!active && pos / CYCLES_PER_LETTER > index) {
-            return char;
-          }
-
-          const randomChar = CHARS[Math.floor(Math.random() * CHARS.length)];
-          return randomChar;
+          if (pos / CYCLES_PER_LETTER > index) return char;
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
         })
         .join("");
 
       setDisplayText(scrambled);
 
-      // Only progress the resolve position in one-shot mode
-      if (!active) pos++;
+      pos++;
 
-      if (!active && pos >= text.length * CYCLES_PER_LETTER) stopScramble();
-    }, SHUFFLE_SPEED);
-  }, [active, stopScramble, text]);
-
-  useEffect(() => {
-    if (autoStart) scramble();
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [autoStart, scramble]);
-
-  useEffect(() => {
-    if (active) scramble();
-    else stopScramble();
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      if (pos >= text.length * CYCLES_PER_LETTER) {
+        clear();
+        setDisplayText(text);
       }
-    };
-  }, [active, scramble, stopScramble]);
+    }, SHUFFLE_SPEED);
+  }, [clear, text]);
+
+  const scrambleActive = useCallback(() => {
+    clear();
+
+    intervalRef.current = setInterval(() => {
+      const scrambled = text
+        .split("")
+        .map((char) => {
+          if (char === " ") return " ";
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        })
+        .join("");
+
+      setDisplayText(scrambled);
+    }, SHUFFLE_SPEED);
+  }, [clear, text]);
+
+  useEffect(() => {
+    if (autoStart) scrambleOnce();
+    return clear;
+  }, [autoStart, clear, scrambleOnce]);
+
+  useEffect(() => {
+    if (active) scrambleActive();
+    else scrambleOnce();
+
+    return clear;
+  }, [active, clear, scrambleActive, scrambleOnce]);
 
   return (
     <span
       className={className}
-      onMouseEnter={hover ? scramble : undefined}
-      onMouseLeave={hover ? stopScramble : undefined}
+      onMouseEnter={hover ? scrambleOnce : undefined}
+      onMouseLeave={undefined}
     >
       {displayText}
     </span>

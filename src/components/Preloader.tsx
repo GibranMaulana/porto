@@ -1,18 +1,17 @@
 import { motion } from 'framer-motion';
+import { ScrambleText } from './ScrambleText';
 interface PreloaderProps {
-   isPageLoaded: boolean;
+   isPageLoaded: number;
 }
 
 const preloader = {
    hidden : {
+      display: "none",
       opacity: 0,
-      transition: {
-         duration: 3
-      }
-      
    },
 
    visible : {
+      display: 'flex',
       opacity: 1,
    }
 }
@@ -22,12 +21,12 @@ export default function Preloader({isPageLoaded}: PreloaderProps) {
    return (
 
       <motion.div 
-         className="font-space text-accent"
+         className="absolute inset-0 font-space text-accent flex justify-center items-center"
          variants={preloader}
-         initial="visible"
-         animate={isPageLoaded ? "hidden" : "visible"}
+         initial="hidden"
+         animate={isPageLoaded === 2  ? "visible" : "hidden"}
          >
-         Preparing
+         <ScrambleText className="text-tertiary font-space" autoStart={true} text={"wait a sec..."} />
       </motion.div>
    )
 }
