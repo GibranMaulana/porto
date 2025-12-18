@@ -6,7 +6,7 @@ interface HeaderProps {
    isPageLoaded: number;
 }
 
-const LINKS = ['HOME', 'ABOUT', 'PROJECTS', 'LETS LINK'];
+const LINKS = ['HOME', 'PROJECTS', 'ABOUT', 'LETS_LINK'];
 
 export default function Header({ isPageLoaded }: HeaderProps) {
    
@@ -44,7 +44,7 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                      layout 
                      className="whitespace-nowrap" 
                   >
-                     <ScrambleText className="font-semibold" text="GIBRAN MAULANA" active={keepScrambling} />
+                     <ScrambleText className="font-space text-tertiary" text="GIBRAN_MAULANA" active={keepScrambling} />
                   </motion.div>
 
                   <motion.div

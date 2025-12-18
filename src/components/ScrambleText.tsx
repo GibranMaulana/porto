@@ -85,12 +85,12 @@ export const ScrambleText = ({
   }, [active, clear, scrambleActive, scrambleOnce]);
 
   return (
-    <span
+    <p
       className={className}
       onMouseEnter={hover ? scrambleOnce : undefined}
       onMouseLeave={undefined}
     >
       {displayText}
-    </span>
+    </p>
   );
 };

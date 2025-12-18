@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
 import SmoothScrolling from "@/components/SmoothScroll";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const manrope = Manrope({
    variable: '--font-manrope',
@@ -25,13 +25,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${manrope.variable} ${spaceMono.variable} antialiased px-10`}
       >
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
          <SmoothScrolling>
             {children}
          </SmoothScrolling>
+      </ThemeProvider>
       </body>
     </html>
   );

@@ -11,6 +11,16 @@
    --color-error: hsl(0, 70%, 45%);
 }
 
+.dark {
+   --color-primary: hsl(160, 17%, 7%);
+   --color-secondary: hsl(106, 50%, 90%);
+   --color-tertiary: hsl(166, 80%, 80%);
+   --color-accent: hsl(46, 80%, 80%);
+   --color-muted: hsl(106, 5%, 60%);
+   --color-border: hsl(160, 5%, 20%);
+   --color-error: hsl(0, 80%, 65%);
+}
+
 
 @theme inline {
   --color-primary: var(--color-primary);
@@ -19,19 +29,9 @@
   --color-accent: var(--color-accent);
   --font-space: var(--font-space);
   --font-manrope: var(--font-manrope);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-   --color-primary: hsl(160, 17%, 7%);
-   --color-secondary: hsl(106, 50%, 90%);
-   --color-tertiary: hsl(166, 80%, 80%);
-   --color-accent: hsl(46, 80%, 80%);
-   --color-muted: hsl(106, 5%, 60%);
-   --color-border: hsl(160, 5%, 20%);
-   --color-error: hsl(0, 80%, 65%);
-
-  }
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-error: var(--color-error);
 }
 
 body {
