@@ -48,7 +48,7 @@ export default function Dock() {
 
       <motion.div
          layout
-         className="flex flex-col absolute right-0 inset-y-0 px-10 justify-center"
+         className="flex flex-col fixed right-0 inset-y-0 px-10 justify-center"
          onHoverStart={() => setIsDockOpen(true)}
          onHoverEnd={() => setIsDockOpen(false)}>
          <AnimatePresence mode="wait">
