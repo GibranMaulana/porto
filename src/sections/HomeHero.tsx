@@ -1,9 +1,8 @@
 import BackgroundGrid from "@/components/BackgroundGrid";
 import Button from "@/components/Button";
 import { ScrambleText } from "@/components/ScrambleText";
-import { delay, easeIn, easeOut, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import Dock from "@/components/Dock";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 interface HomeHeroProps {
    isPageLoaded: number
@@ -34,10 +33,24 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
       }
    }
 
-   
+   const sectionRef = useRef(null);
+
+   const { scrollYProgress } = useScroll({
+      target: sectionRef,
+      offset: ['start start', 'end start']
+   });
+
+   const titleMove = useTransform(scrollYProgress,[0.1, 0.3],["0px", "-100px"])
+   const titleFade = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
+   const heroButtonFade = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
+   const subtitleFade = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
+   const subtitleMove = useTransform(scrollYProgress, [0.2, 0.5], ["0%", "-150%"]);
+   const debug = useTransform(scrollYProgress, [0, 1], [0, 1])
+
 
    return (
-      <section className="min-h-screen flex items-center">
+      <section className="min-h-screen flex items-center" ref={sectionRef}>
+         <motion.h1 className="text-white fixed inset-0">{debug}</motion.h1>
          <BackgroundGrid />
          <div className="">
             <div>
@@ -45,7 +58,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                   initial="hidden" 
                   variants={titleContainer}
                   animate={isPageLoaded ? 'visible' : 'hidden'}
-                  className=""
+                  style={{y: titleMove, opacity: titleFade}}
                   viewport={{
                      once: false,
                      amount: 0.8
@@ -66,6 +79,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                <div className="overflow-hidden">
                   <motion.div 
                      className="flex gap-6 text-lg py-10 overflow-hidden" 
+                     style={{ opacity: heroButtonFade}}
                      initial={{ y: "120%"}}
                      animate={isPageLoaded ? { y:0} : {} }
                      transition={{ delay: 1.3, duration: 1, ease: [0.16, 1, 0.3 ,1] as const}}>
@@ -85,6 +99,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
          </div>
          <div className="absolute inset-x-0 bottom-0 px-10">
             <motion.p 
+               style={{ opacity: subtitleFade, y: subtitleMove}}
                className="text-end text-xl"
                initial={{ y:"200%" }}
                animate={{ y:0}}
