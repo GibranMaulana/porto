@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ScrambleText } from "./ScrambleText";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import useIsScrolling from "@/Hooks/useIsScrolling";
 
 interface HeaderProps {
    isPageLoaded: number;
@@ -20,6 +21,8 @@ export default function Header({ isPageLoaded }: HeaderProps) {
          setIsScrolled(hasScrolled);
       }
    })
+
+   const scrolledStatus = useIsScrolling();
 
    const textStyle = isScrolled ? 'text-primary bg-tertiary px-2' : 'text-tertiary';
 
@@ -41,13 +44,13 @@ export default function Header({ isPageLoaded }: HeaderProps) {
    return (
       <>
          {isPageLoaded >= 2 && (
-            <motion.header className="fixed top-0 inset-x-0 mix-blend-difference px-10 z-50">
+            <motion.header className="fixed top-0 inset-x-0 px-10 z-50">
                <motion.div
                   layout
-                  className="relative flex w-full py-10 items-center"
+                  className="relative flex w-full"
                   style={{ 
-                     paddingTop: isScrolled ? "20px" : "40px",
-                     paddingBottom: isScrolled ? "20px" : "40px",
+                     paddingTop: isScrolled ? "0px" : "40px",
+                     paddingBottom: isScrolled ? "0px" : "40px",
                      justifyContent: isFinished ? "space-between" : "center",
                      gap: isFinished ? "0px" : "40px" 
                   }}
@@ -68,7 +71,7 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                      layout 
                      className="whitespace-nowrap z-10" 
                   >
-                     <ScrambleText className={`font-space ${textStyle} z-10`} text="GIBRAN_MAULANA" active={keepScrambling} />
+                     <ScrambleText className={`font-space ${textStyle} z-10`} text="GIBRAN_MAULANA" active={keepScrambling || scrolledStatus} />
                   </motion.div>
                   <motion.div
                      layout
