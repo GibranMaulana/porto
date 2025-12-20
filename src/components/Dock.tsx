@@ -5,6 +5,7 @@ import { GoSun } from "react-icons/go";
 import { AiOutlineSpotify } from "react-icons/ai";
 import { GoMoon } from "react-icons/go";
 import { useTheme } from "next-themes";
+import useIsScrolling from "@/Hooks/useIsScrolling";
 
 export default function Dock() {
    const [mounted, setMounted] = useState(false);
@@ -12,6 +13,7 @@ export default function Dock() {
    const [isGithubOpen, setIsGithubOpen] = useState(false);
    const [isSpotifyOpen, setIsSpotifyOpen] = useState(false);
    const { theme, setTheme, resolvedTheme } = useTheme();
+   const isScrolling = useIsScrolling(1000);
 
    
    useEffect(() => {
@@ -45,7 +47,6 @@ export default function Dock() {
    }
 
    return (
-
       <motion.div
          layout
          className="flex flex-col fixed right-0 inset-y-0 px-10 justify-center"
@@ -105,7 +106,7 @@ export default function Dock() {
                <motion.p 
                   className="[writing-mode:vertical-rl] font-space text-primary px-2 bg-tertiary"
                   initial={{ opacity: 0, x:20}}
-                  animate={{ opacity: 1, x: 0}}
+                  animate={{ opacity: isScrolling ? 0 : 1, x: isScrolling ? 20 : 0}}
                   exit={{ opacity: 0, x:20}}
                   >
                   MODULES
