@@ -49,9 +49,8 @@ export default function Dock() {
    return (
       <motion.div
          layout
-         className="flex flex-col fixed right-0 inset-y-0 px-10 justify-center"
-         onHoverStart={() => setIsDockOpen(true)}
-         onHoverEnd={() => setIsDockOpen(false)}>
+         className="flex flex-col fixed right-0 pr-5 justify-center z-30 min-h-screen"
+         >
          <AnimatePresence mode="wait">
             {isDockOpen ? (
 
@@ -61,7 +60,8 @@ export default function Dock() {
                   variants={dockContainer}
                   animate="visible"
                   exit="exit"
-                  className="bg-tertiary text-tertiary flex flex-col gap-3 p-2 rounded-sm">
+                  className="bg-tertiary text-tertiary flex flex-col gap-3 p-2 rounded-sm"
+                  onHoverEnd={() => setIsDockOpen(false)}>
                      
                      <motion.div 
                         className="p-2 bg-primary hover:cursor-pointer overflow-hidden flex" 
@@ -108,6 +108,8 @@ export default function Dock() {
                   initial={{ opacity: 0, x:20}}
                   animate={{ opacity: isScrolling ? 0 : 1, x: isScrolling ? 20 : 0}}
                   exit={{ opacity: 0, x:20}}
+                  onHoverStart={() => setIsDockOpen(true)}
+                  
                   >
                   MODULES
                </motion.p>
