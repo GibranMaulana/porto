@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, easeInOut, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, easeInOut, useSpring, useMotionValue } from "framer-motion";
 import { ScrambleText } from "@/components/ScrambleText";
 import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const PROJECTS: ProjectData[] = [
     category: "NEXT.JS / SANITY",
     year: "2025",
     img: "/images/bemfatisdauns.png", 
-    href: "/project/bem-profile",
+    href: "https://bemfatisdauns.id",
     role: ['FRONTEND', 'CMS INTEGRATION']
   },
   {
@@ -34,7 +34,7 @@ const PROJECTS: ProjectData[] = [
     category: "LARAVEL / INERTIA / MOTION",
     year: "2025",
     img: "/images/pingfest.png",
-    href: "/project/pingfest",
+    href: "https://pingfest.id",
     role: ['FULLSTACK'],
   },
   {
@@ -44,7 +44,7 @@ const PROJECTS: ProjectData[] = [
     category: "LARAVEL / GSAP",
     year: "2025",
     img: "/images/pemilubemfatisdauns.png",
-    href: "/project/evoting",
+    href: "https://pemilu.bemfatisdauns.id",
     role: ["FRONTEND", "INTERACTION DESIGN" ]
   },
 ];
@@ -57,25 +57,38 @@ export default function ProjectList() {
       offset: ['start end','start center']
    })
 
+   const { scrollYProgress: exitTitleProgress } = useScroll({
+      target: proConRef,
+      offset: ['end end', 'end center']
+   })
+
+   
    const headerY = useTransform(titleScrollProgress, [0, 1], ["-50px", "0px"]);
    const opacityHeader = useTransform(titleScrollProgress, [0, 1], [0, 1]);
-   const hrScale = useTransform(titleScrollProgress, [0, 0, 1], [0, 0, 1]);
+   const exitAnimation = useTransform(exitTitleProgress, [0, 1], ["0px", "-200%"]);
+   const exitAnimationOpacity = useTransform(exitTitleProgress, [0, 1], [1, 0])
 
    const [isAsList, setIsAsList] = useState(false);
    const toggleList = (value: boolean) => {
       setIsAsList(value);
    }
 
-   const toggleListStyle = isAsList ? "bg-tertiary text-primary" : ""
-
    return (
       <section className="py-20 my-10" ref={proConRef}>
-         <motion.div className="sticky top-5 z-20 flex items-center overflow-hidden">
+         <motion.div 
+            layout
+            className={`${isAsList ? "" : "sticky top-5"}` + " z-40 flex items-center overflow-hidden mb-5"}
+            >
             <motion.h1 
                className="text-6xl font-space mr-10" 
-               style={{y: headerY, opacity: opacityHeader}}
+               style={{
+                  y: headerY, 
+                  opacity: opacityHeader,
+               }}
+               initial={{color: "var(--color-secondary)"}}
                whileInView={{
-                  backgroundColor: "var(--color-tertiary)", color: "var(--color-primary)",
+                  backgroundColor: isAsList ? "" : "var(--color-tertiary)", 
+                  color: isAsList ? "" : "var(--color-primary)",
                   marginRight: 0
                }}
                viewport={{
@@ -88,7 +101,7 @@ export default function ProjectList() {
             <motion.div 
                className="h-px bg-tertiary my-10 origin-center flex-1" 
                initial={{ scaleX: 0 }} 
-               whileInView={{ scaleX: 1 }} 
+               whileInView={isAsList ? { } : { scaleX: 1 }} 
                viewport={{ 
                   once: false,
                   margin: "0px 0px -90% 0px", 
@@ -113,7 +126,7 @@ export default function ProjectList() {
             </motion.div>    
          </motion.div>
          {/* <motion.hr className="text-tertiary text-center my-10 origin-center" initial={{scaleX: 0}} style={{scaleX: hrScale}}/> */}
-         <div className={`flex flex-col ${isAsList ? "gap-20" : "gap-50"} px-4 md:px-10`}>
+         <div className={`flex flex-col ${isAsList ? "" : "gap-50"} px-4 md:px-10`}>
             {isAsList ? (
                PROJECTS.map((x) => (
                   <ProjectListItem 
@@ -160,6 +173,16 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
       restDelta: 0.001
    })
 
+   const [isHoveringSection, setIsHoveringSection] =  useState(false);
+
+   const mouseX = useMotionValue(0);
+   const mouseY = useMotionValue(0);
+
+   const handleMouseMove = (e: React.MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+   }
+
    const imageScale = useTransform(smoothScale, [0, 1], [0.8, 1], {ease: easeInOut})
    const overlayOpacity = useTransform(smoothScale, [0, 0.8], [1, 0]);
    const scrambleOverlay = useTransform(smoothScale, [0, 0.7], [false, true])
@@ -187,8 +210,35 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
             </motion.div>
          </div>
 
-         <div className="flex flex-col h-full pl-6 md:pl-10 relative overflow-hidden">
-            
+         <Link 
+            className="flex flex-col h-full pl-6 md:pl-10 relative overflow-hidden"
+            href={href}
+            target="_blank"
+            onMouseEnter={() => setIsHoveringSection(true)}
+            onMouseLeave={() => setIsHoveringSection(false)}
+            onMouseMove={handleMouseMove}> 
+
+            <AnimatePresence>
+               {isHoveringSection && (
+                  <motion.div
+                     initial={{ x: 20, opacity: 0 }}
+                     animate={{ x: 0, opacity: 1 }}
+                     exit={{ x: -20, opacity: 0 }}
+                     transition={{ duration: 0.2 }}
+                     style={{
+                        position: "fixed", // Fixed allows it to escape the overflow-hidden
+                        left: mouseX,
+                        top: mouseY,
+                        y: "10%",
+                        zIndex: 50, // Ensure it's above the image overlays
+                        pointerEvents: "none" // Crucial: lets clicks pass through to the link/image
+                     }}
+                     className="flex items-center justify-centers gap-2 bg-tertiary text-primary border border-tertiary font-space text-xs px-4 py-2 uppercase tracking-widest whitespace-nowrap shadow-xl"
+                  >
+                     <div className="animate-pulse bg-primary size-2 rounded-full "></div>LIVE DEMO
+                  </motion.div>
+               )}
+            </AnimatePresence>
             <motion.div 
                ref={lineRef}
                className="absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30"
@@ -217,7 +267,7 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
             </div>
             
             <div className="grow flex items-center relative z-0">
-               <h2 className="text-5xl md:text-7xl font-manrope font-bold uppercase leading-[0.85] text-secondary break-words">
+               <h2 className="text-5xl md:text-7xl font-manrope uppercase leading-[0.85] text-secondary break-words">
                   {title}
                </h2>
             </div>
@@ -237,7 +287,7 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
                </div>
             </div>
 
-         </div>
+         </Link>
       </div>
    )
 }
@@ -256,7 +306,7 @@ function ProjectListItem({ id, img, title, href, role, category, year }: Project
            <span className="font-space text-xs text-muted group-hover:text-primary/60 transition-colors">
               /{id}
            </span>
-           <h3 className="text-3xl md:text-5xl font-manrope font-bold uppercase group-hover:translate-x-4 transition-transform duration-300">
+           <h3 className="text-3xl md:text-5xl font-manrope uppercase group-hover:translate-x-4 transition-transform duration-300">
               {title}
            </h3>
         </div>
