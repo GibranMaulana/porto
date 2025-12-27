@@ -49,7 +49,7 @@ const PROJECTS: ProjectData[] = [
   },
 ];
 
-export default function ProjectList() {
+export default function Project() {
    const proConRef = useRef(null);
 
    const { scrollYProgress: titleScrollProgress} = useScroll({
@@ -57,16 +57,8 @@ export default function ProjectList() {
       offset: ['start end','start center']
    })
 
-   const { scrollYProgress: exitTitleProgress } = useScroll({
-      target: proConRef,
-      offset: ['end end', 'end center']
-   })
-
-   
    const headerY = useTransform(titleScrollProgress, [0, 1], ["-50px", "0px"]);
    const opacityHeader = useTransform(titleScrollProgress, [0, 1], [0, 1]);
-   const exitAnimation = useTransform(exitTitleProgress, [0, 1], ["0px", "-200%"]);
-   const exitAnimationOpacity = useTransform(exitTitleProgress, [0, 1], [1, 0])
 
    const [isAsList, setIsAsList] = useState(false);
    const toggleList = (value: boolean) => {
@@ -74,13 +66,21 @@ export default function ProjectList() {
    }
 
    return (
-      <section className="py-20 my-10" ref={proConRef}>
+      <motion.section 
+         className="py-20 my-10"
+         initial={{ y: 0}}
+         exit={{ y: "200%" }}
+         viewport={{ 
+            once: false,
+            margin: "0px 0px -80% 0px"
+         }}
+         ref={proConRef}>
          <motion.div 
             layout
-            className={`${isAsList ? "" : "sticky top-5"}` + " z-40 flex items-center overflow-hidden mb-5"}
+            className={`${isAsList ? "" : "sticky top-5"}` + " z-40 py-2 flex justify-between items-center overflow-hidden mb-5"}
             >
             <motion.h1 
-               className="text-6xl font-space mr-10" 
+               className="text-6xl md:text-8xl font-manrope font-bold uppercase leading-none" 
                style={{
                   y: headerY, 
                   opacity: opacityHeader,
@@ -89,7 +89,6 @@ export default function ProjectList() {
                whileInView={{
                   backgroundColor: isAsList ? "" : "var(--color-tertiary)", 
                   color: isAsList ? "" : "var(--color-primary)",
-                  marginRight: 0
                }}
                viewport={{
                   once: false,
@@ -98,16 +97,7 @@ export default function ProjectList() {
             >
                PROJECTS 
             </motion.h1>
-            <motion.div 
-               className="h-px bg-tertiary my-10 origin-center flex-1" 
-               initial={{ scaleX: 0 }} 
-               whileInView={isAsList ? { } : { scaleX: 1 }} 
-               viewport={{ 
-                  once: false,
-                  margin: "0px 0px -90% 0px", 
-               }}
-            />
-            <motion.div className="relative flex justify-between hover:cursor-pointer border border-tertiary" style={{y: headerY, opacity: opacityHeader}} >
+            <motion.div className="relative flex justify-between hover:cursor-pointer border border-tertiary backdrop-blur-xl" style={{y: headerY, opacity: opacityHeader}} >
                <motion.div 
                   layout
                   className="absolute inset-y-0 bg-tertiary w-1/2  mix-blend-difference border border-tertiary"
@@ -125,11 +115,10 @@ export default function ProjectList() {
                </motion.div>
             </motion.div>    
          </motion.div>
-         {/* <motion.hr className="text-tertiary text-center my-10 origin-center" initial={{scaleX: 0}} style={{scaleX: hrScale}}/> */}
          <div className={`flex flex-col ${isAsList ? "" : "gap-50"} px-4 md:px-10`}>
             {isAsList ? (
                PROJECTS.map((x) => (
-                  <ProjectListItem 
+                  <ProjectList 
                      key={x.id}
                      {...x}
                   />
@@ -137,23 +126,30 @@ export default function ProjectList() {
                
             ) : (
                PROJECTS.map((x) => (
-                  <ProjectItem 
+                  <ProjectGrid
                      key={x.id}
                      {...x}
                   />
                ))
             )}
          </div>
-      </section>
+      </motion.section>
    )
 }
 
-function ProjectItem({id, img, title, href, description, role, category } : ProjectData) {
+function ProjectGrid({id, img, title, href, description, role, category } : ProjectData) {
    const ref = useRef(null);
    const { scrollYProgress: sectionScroll } = useScroll({
       target: ref,
       offset: ['start end', 'center center'],
    })
+
+   const {scrollYProgress: itemsProgress} = useScroll({
+      target:ref,
+      offset: ['start end', 'end start']
+   })
+
+   const paralaxEffectCard = useTransform(itemsProgress, [0, 1], ["100px", "-100px"])
 
    const cardRef = useRef(null);
    const { scrollYProgress: cardEffect} = useScroll({
@@ -187,12 +183,19 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
    const overlayOpacity = useTransform(smoothScale, [0, 0.8], [1, 0]);
    const scrambleOverlay = useTransform(smoothScale, [0, 0.7], [false, true])
 
+   const springConfig = { damping: 50, stiffness: 400, mass: 1 };
+   const cursorX = useSpring(mouseX, springConfig);
+   const cursorY = useSpring(mouseY, springConfig);
+
    const cardOverlay = useTransform(cardEffect, [0, 0.5], [1, 0]);
    const lineProgress = useTransform(lineEffect, [0, 0.3], [0, 1]);
 
    return (
-      <div ref={ref} className="py-10 grid grid-cols-1 md:grid-cols-2 gap-10 border-b border-muted/10">
-         <div className="relative flex h-[300px] md:h-[450px] overflow-hidden">
+      <motion.div ref={ref} className="py-10 grid grid-cols-1 md:grid-cols-2 gap-10 border-b border-muted/10">
+         <motion.div 
+            className="relative flex h-[300px] md:h-[450px] overflow-hidden"
+            style={{ y: paralaxEffectCard }}
+         >
             <motion.img 
                src={img} 
                alt={title} 
@@ -208,7 +211,7 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
                   <ScrambleText text="REDACTED" active={true} className="text-5xl font-space text-primary" />
                )}
             </motion.div>
-         </div>
+         </motion.div>
 
          <Link 
             className="flex flex-col h-full pl-6 md:pl-10 relative overflow-hidden"
@@ -226,12 +229,12 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
                      exit={{ x: -20, opacity: 0 }}
                      transition={{ duration: 0.2 }}
                      style={{
-                        position: "fixed", // Fixed allows it to escape the overflow-hidden
-                        left: mouseX,
-                        top: mouseY,
+                        position: "fixed", 
+                        left: cursorX,
+                        top: cursorY,
                         y: "10%",
-                        zIndex: 50, // Ensure it's above the image overlays
-                        pointerEvents: "none" // Crucial: lets clicks pass through to the link/image
+                        zIndex: 50, 
+                        pointerEvents: "none" 
                      }}
                      className="flex items-center justify-centers gap-2 bg-tertiary text-primary border border-tertiary font-space text-xs px-4 py-2 uppercase tracking-widest whitespace-nowrap shadow-xl"
                   >
@@ -243,20 +246,12 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
                ref={lineRef}
                className="absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30"
                style={{scaleY: lineProgress}}
-               // initial={{ scaleY: 0 }}
-               // whileInView={{ scaleY: 1 }}
-               // viewport={{ once: true }}
-               // transition={{ delay: 0.5, duration: 0.8, ease: easeInOut }}
             />
 
             <motion.div 
                ref={cardRef}
                className="absolute inset-0 bg-primary z-20 origin-left"
                style={{ scaleX: cardOverlay}}
-               // initial={{ scaleX: 1 }}
-               // whileInView={{ scaleX: 0 }}
-               // viewport={{ once: true, amount: 0.5 }}
-               // transition={{ delay: 0.7, duration: 1.5, ease: easeInOut }}
             />
             
             <div className="flex justify-between items-start mb-4 relative z-0">
@@ -288,11 +283,11 @@ function ProjectItem({id, img, title, href, description, role, category } : Proj
             </div>
 
          </Link>
-      </div>
+      </motion.div>
    )
 }
 
-function ProjectListItem({ id, img, title, href, role, category, year }: ProjectData) {
+function ProjectList({ id, img, title, href, role, category, year }: ProjectData) {
   return (
     <Link href={href} className="block w-full">
       <motion.div 
