@@ -49,7 +49,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
 
 
    return (
-      <section className="min-h-screen flex items-center px-10" ref={sectionRef}>
+      <section className="min-h-screen flex items-center px-2 sm:px-10" ref={sectionRef}>
          {/* <motion.h1 className="text-white fixed inset-0">{debug}</motion.h1> */}
          <BackgroundGrid />
          <div className="">
@@ -68,17 +68,17 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                      <motion.div variants={titleItem} className="flex items-center gap-3">
                         <motion.div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></motion.div>
                         <motion.span className="block">
-                           <ScrambleText text="AVAILABLE_FOR_FREELANCE" className="font-space text-accent block font-normal" />
+                           <ScrambleText text="AVAILABLE_FOR_FREELANCE" className="text-sm font-space text-accent block font-normal" />
                         </motion.span>
                      </motion.div>
                   </motion.div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-7xl block" >Design driven.</motion.span></div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-8xl block">Logic backed.</motion.span></div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-9xl block ">User <span className="font-normal font-space text-tertiary">FOCUSED.</span></motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-3xl sm:text-7xl block" >Design driven.</motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-4xl sm:text-8xl block">Logic backed.</motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-5xl sm:text-9xl block ">User <span className="font-normal font-space text-tertiary">FOCUSED.</span></motion.span></div>
                </motion.h1>
                <div className="overflow-hidden">
-                  <motion.div 
-                     className="flex gap-6 text-lg py-10 overflow-hidden" 
+                  <motion.div
+                     className="flex gap-6 text-sm py-10 overflow-hidden" 
                      style={{ opacity: heroButtonFade}}
                      initial={{ y: "120%"}}
                      animate={isPageLoaded ? { y:0} : {} }
@@ -97,7 +97,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                </div>
             </div>
          </div>
-         <div className="absolute inset-x-0 bottom-0 px-10">
+         <div className="absolute inset-x-0 bottom-0 px-2 sm:px-10">
             <motion.p 
                style={{ opacity: subtitleFade, y: subtitleMove}}
                className="text-end text-xl"

@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform, easeInOut, useSpring,
 import { ScrambleText } from "@/components/ScrambleText";
 import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
+import { useMediaQuery } from "@/Hooks/useMediaQuery";
 
 interface ProjectData {
   id: string;
@@ -49,7 +50,9 @@ const PROJECTS: ProjectData[] = [
   },
 ];
 
+
 export default function Project() {
+   const isMobile = useMediaQuery("(max-width: 640px)");
    const proConRef = useRef(null);
 
    const { scrollYProgress: titleScrollProgress} = useScroll({
@@ -67,7 +70,7 @@ export default function Project() {
 
    return (
       <motion.section 
-         className="py-20 my-10 px-10"
+         className="py-20 my-10 px-2 sm:px-10"
          initial={{ y: 0}}
          exit={{ y: "200%" }}
          viewport={{ 
@@ -80,7 +83,7 @@ export default function Project() {
             className={`${isAsList ? "" : "sticky top-5"}` + " z-40 py-2 flex justify-between items-center overflow-hidden mb-5"}
             >
             <motion.h1 
-               className="text-6xl md:text-8xl font-manrope font-bold uppercase leading-none" 
+               className="text-4xl md:text-8xl font-manrope font-bold uppercase leading-none" 
                style={{
                   y: headerY, 
                   opacity: opacityHeader,
@@ -115,7 +118,7 @@ export default function Project() {
                </motion.div>
             </motion.div>    
          </motion.div>
-         <div className={`flex flex-col ${isAsList ? "" : "gap-50"} px-4 md:px-10`}>
+         <div className={`flex flex-col ${isAsList ? "" : "gap-6 sm:gap-50"} px-2 md:px-10`}>
             {isAsList ? (
                PROJECTS.map((x) => (
                   <ProjectList 
@@ -138,6 +141,7 @@ export default function Project() {
 }
 
 function ProjectGrid({id, img, title, href, description, role, category } : ProjectData) {
+   const isMobile = useMediaQuery("(max-width: 640px)");
    const ref = useRef(null);
    const { scrollYProgress: sectionScroll } = useScroll({
       target: ref,
@@ -148,6 +152,7 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
       target:ref,
       offset: ['start end', 'end start']
    })
+
 
    const paralaxEffectCard = useTransform(itemsProgress, [0, 1], ["100px", "-100px"])
 
@@ -191,7 +196,7 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
    const lineProgress = useTransform(lineEffect, [0, 0.3], [0, 1]);
 
    return (
-      <motion.div ref={ref} className="py-10 grid grid-cols-1 md:grid-cols-2 gap-10 border-b border-muted/10">
+      <motion.div ref={ref} className="py-2 sm:py-10 grid grid-cols-1 md:grid-cols-2 gap-10 border-b border-muted/10">
          <motion.div 
             className="relative flex h-[300px] md:h-[450px] overflow-hidden"
             style={{ y: paralaxEffectCard }}
@@ -214,7 +219,7 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
          </motion.div>
 
          <Link 
-            className="flex flex-col h-full pl-6 md:pl-10 relative overflow-hidden"
+            className="flex flex-col h-full md:pl-10 relative overflow-hidden"
             href={href}
             target="_blank"
             onMouseEnter={() => setIsHoveringSection(true)}
@@ -242,12 +247,12 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
                   </motion.div>
                )}
             </AnimatePresence>
+
             <motion.div 
                ref={lineRef}
-               className="absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30"
+               className={`absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30 ${isMobile ? "opacity-0" : ""}`}
                style={{scaleY: lineProgress}}
             />
-
             <motion.div 
                ref={cardRef}
                className="absolute inset-0 bg-primary z-20 origin-left"
@@ -255,28 +260,28 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
             />
             
             <div className="flex justify-between items-start mb-4 relative z-0">
-               <span className="font-space text-tertiary">/{id}</span>
-               <span className="font-space bg-tertiary px-2 py-0.5 text-primary">
+               <span className="font-space text-tertiary text-xs sm:text-base">/{id}</span>
+               <span className="font-space bg-tertiary px-2 py-0.5 text-primary text-xs sm:text-base">
                   {category}
                </span>
             </div>
             
             <div className="grow flex items-center relative z-0">
-               <h2 className="text-5xl md:text-7xl font-manrope uppercase leading-[0.85] text-secondary break-words">
+               <h2 className="text-3xl md:text-7xl font-manrope uppercase leading-[0.85] text-secondary break-words">
                   {title}
                </h2>
             </div>
             
             <div className="border-t border-tertiary font-space pt-6 mt-6 grid grid-cols-2 gap-4 relative z-0">
                <div>
-                  <span className="block uppercase tracking-widest text-accent mb-1">Roles</span>
-                  <div className="flex flex-col font-space text-sm text-secondary">
+                  <span className="block uppercase tracking-widest text-accent text-xs sm:text-base mb-1">Roles</span>
+                  <div className="flex flex-col font-space text-xs sm:text-base text-secondary">
                      {role.map((r) => <span key={r}>{r}</span>)}
                   </div>
                </div>
                <div className="flex flex-col justify-between">
-                  <span className="block text-sm uppercase tracking-widest text-accent mb-1">Brief</span>
-                  <p className="font-manrope leading-relaxed text-secondary/80">
+                  <span className="block uppercase tracking-widest text-accent text-xs sm:text-base mb-1">Brief</span>
+                  <p className="font-manrope leading-relaxed text-secondary/80 text-xs sm:text-base">
                      {description}
                   </p>
                </div>
@@ -291,13 +296,13 @@ function ProjectList({ id, img, title, href, role, category, year }: ProjectData
   return (
     <Link href={href} className="block w-full">
       <motion.div 
-        className="group relative w-full border-b border-muted/20 py-6 md:py-8 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors duration-300 hover:bg-tertiary hover:text-primary px-4 md:px-6"
+        className="group relative w-full border-b border-muted/20 py-6 md:py-8 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors duration-300 hover:bg-tertiary hover:text-primary px-2 md:px-6"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
       >
-        <div className="flex items-baseline gap-6 md:gap-12 relative z-20">
+        <div className="flex items-baseline gap-2 md:gap-12 relative z-20">
            <span className="font-space text-xs text-muted group-hover:text-primary/60 transition-colors">
               /{id}
            </span>
@@ -315,7 +320,7 @@ function ProjectList({ id, img, title, href, role, category, year }: ProjectData
               <span className="font-space text-[10px] uppercase tracking-widest opacity-60">Role</span>
               <span className="font-space text-xs font-bold">{role[0]}</span>
            </div>
-           <span className="font-space text-xs border border-muted/30 px-3 py-1 rounded-full group-hover:border-primary/40">
+           <span className="font-space text-xs border border-tertiary px-3 py-1 group-hover:border-primary/40">
               {year}
            </span>
            <GoArrowUpRight className="text-3xl transition-transform duration-300 group-hover:rotate-45" />

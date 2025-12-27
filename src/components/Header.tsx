@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrambleText } from "./ScrambleText";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { AnimatePresence, isMotionValue, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import useIsScrolling from "@/Hooks/useIsScrolling";
+import { useMediaQuery } from "@/Hooks/useMediaQuery";
 
 interface HeaderProps {
    isPageLoaded: number;
@@ -11,6 +12,8 @@ const LINKS = ['HOME', 'PROJECTS', 'ABOUT', 'LETS_LINK'];
 
 
 export default function Header({ isPageLoaded }: HeaderProps) {
+
+   const isMobile = useMediaQuery("(max-width: 640px)")
 
    const [isScrolled, setIsScrolled] = useState(false);
    const { scrollY } = useScroll();
@@ -42,21 +45,20 @@ export default function Header({ isPageLoaded }: HeaderProps) {
    }, [isFinished]);
 
    return (
-      <>
+      <> 
          {isPageLoaded >= 2 && (
-            <motion.header className="fixed top-0 inset-x-0 px-10 z-50">
+            <motion.header className="fixed top-0 inset-x-0 px-2 sm:px-10 z-50">
                <motion.div
                   layout
                   className="relative flex w-full"
                   style={{ 
                      paddingTop: isScrolled ? "0px" : "40px",
                      paddingBottom: isScrolled ? "0px" : "40px",
-                     justifyContent: isFinished ? "space-between" : "center",
+                     justifyContent: isFinished ? (isMobile ? "center": "space-between") : "center",
                      gap: isFinished ? "0px" : "40px" 
                   }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} 
                >
-                  
                   <AnimatePresence>
                      {isScrolled && (
                         <motion.hr 
@@ -67,15 +69,18 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                            transition={{duration: 0.5, delay: 0.2}} />
                      )}
                   </AnimatePresence>
-                  <motion.div 
-                     layout 
-                     className="whitespace-nowrap z-10" 
-                  >
-                     <ScrambleText className={`font-space ${textStyle} z-10`} text="GIBRAN_MAULANA" active={keepScrambling || scrolledStatus} />
-                  </motion.div>
+
+                  {!isMobile && (
+                     <motion.div 
+                        layout 
+                        className="whitespace-nowrap z-10" 
+                     >
+                        <ScrambleText className={`font-space ${textStyle} z-10`} text="GIBRAN_MAULANA" active={keepScrambling || scrolledStatus} />
+                     </motion.div>
+                  )}
                   <motion.div
                      layout
-                     className="flex gap-6 whitespace-nowrap" 
+                     className="flex gap-2 sm:gap-6 whitespace-nowrap" 
                   >
                      {LINKS.map((x, i) => (
                         <ScrambleText 

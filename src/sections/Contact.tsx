@@ -82,16 +82,16 @@ export default function Contact() {
    return (
       <section className="z-0 sticky inset-0">
          <div className="flex flex-col min-h-screen">
-            <div className="flex-1/2 flex flex-row">
-               <div className="flex items-center justify-center flex-1/3">
+            <div className="flex-1/2 flex flex-col sm:flex-row px-2">
+               <div className="flex items-center justify-center flex-1/3 px-4">
                   <p className="font-inset-0space text-tertiary uppercase">whats on your mind, make it true</p>
                </div>
-               <div className="flex flex-2/3 flex-col justify-evenly">
-                  <div className="grid grid-cols-3">
+               <div className="flex flex-2/3 flex-col justify-evenly text-xs sm:text-base gap-3">
+                  <div className=" flex flex1/2 flex-col justify-ends">
                      <CommandLineMail />
                   </div>
-                  <div className="grid grid-cols-4">
-                     <div className="flex flex-col gap-10">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-12 justify-center">
+                     <div className="flex flex-col gap-5 sm:gap-10">
                         <p className="">CONTACT</p>
                         <div className="flex flex-col gap-2">
                         {(
@@ -103,7 +103,7 @@ export default function Contact() {
                         )}
                         </div>
                      </div>
-                     <div className="flex flex-col gap-10">
+                     <div className="flex flex-col gap-5 sm:gap-10">
                         <p className="">SOCIAL MEDIA</p>
                         <div className="flex flex-col gap-2">
                         {(
@@ -115,7 +115,7 @@ export default function Contact() {
                         )}
                         </div>
                      </div>
-                     <div className="flex flex-col gap-10">
+                     <div className="flex flex-col gap-5 sm:gap-10">
                         <p className="">INSPIRATION</p>
                         <div className="flex flex-col gap-2">
                         {(
@@ -127,7 +127,7 @@ export default function Contact() {
                         )}
                         </div>
                      </div>
-                     <div className="flex flex-col gap-10">
+                     <div className="flex flex-col gap-5 sm:gap-10">
                         <p className="">TECH STACK</p>
                         <div className="flex flex-col gap-2">
                         {(
@@ -144,7 +144,7 @@ export default function Contact() {
             </div>
             <div className="relative flex-1/2 flex flex-row justify-center items-center bg-tertiary">
                <ScanlineOverlay />
-               <ScrambleText className="text-primary text-[12rem] font-space z-0 " text="MAKE IT HAPPEN" /> 
+               <ScrambleText className="text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[12rem] font-space z-0 " text="MAKE IT HAPPEN" /> 
             </div>
          </div>
       </section>

@@ -65,7 +65,7 @@ const CommandLineMail = () => {
           placeholder={placeholder}
           disabled={status === "COOLDOWN" || status === "SENT"}
           className={`
-            w-full bg-transparent border py-2 pl-8 pr-12 text-sm font-mono transition-all outline-none
+            w-full bg-transparent border py-2 pl-8 pr-12 text-xs sm:text-sm font-mono transition-all outline-none
             ${status === "ERROR" 
               ? "border-red-500 text-red-500 placeholder-red-500/50" 
               : "border-tertiary/30 text-white placeholder-tertiary/50 focus:border-accent"
