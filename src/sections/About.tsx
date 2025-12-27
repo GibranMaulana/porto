@@ -7,8 +7,7 @@ import ScanlineOverlay from "@/components/ScanlineOverlay";
 
 const SKILLS = [
   "NEXT.JS 14", "TYPESCRIPT", "TAILWIND", "FRAMER MOTION",
-  "NODE.JS", "POSTGRESQL", "LARAVEL", "SANITY", "GSAP"
-  
+  "NODE.JS", "POSTGRESQL", "LARAVEL", "SANITY", "GSAP", 
 ];
 
 const EXPERIENCE = [
@@ -23,10 +22,21 @@ export default function AboutSection() {
     offset: ["start end", "end start"],
   });
 
+   const { scrollYProgress: revealFooterProgress } = useScroll({
+      target: containerRef,
+      offset: ['end end', 'end start'],
+   }) 
+   
+   const revealFooter = useTransform(revealFooterProgress, [0, 1], ["0px", "-100dvh"]);
+
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
-    <section ref={containerRef} className="min-h-screen py-20 px-4 md:px-10 bg-primary text-secondary overflow-hidden relative">
+    <motion.section 
+      ref={containerRef} 
+      className="min-h-screen py-20 px-4 md:px-10 bg-primary text-secondary overflow-hidden relative z-10 border-b border-tertiary"
+      style={{ y: revealFooter }}
+    >
       
       <div className="flex flex-col md:flex-row justify-between items-end border-b border-tertiary/30 pb-6 mb-12">
          <motion.div style={{ opacity }} className="flex flex-col">
@@ -108,6 +118,6 @@ export default function AboutSection() {
          </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 }

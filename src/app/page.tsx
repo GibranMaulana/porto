@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Dock from "@/components/Dock";
 import ProjectList from "@/sections/Projects";
-import ContactSection from "@/sections/Contact";
+import Contact from "@/sections/Contact";
 
 export default function Home() {
    //NOTE: 1=masih blank, 2=preloader muncul, 3=content muncul 
@@ -51,8 +51,10 @@ export default function Home() {
                <Dock />
                <HomeHero isPageLoaded={isPageLoaded} />
                <ProjectList />
-               <About />
-               {/* <ContactSection /> */}
+               <div className="relative min-h-[200dvh]">
+                  <About />
+                  <Contact />
+               </div>
             </>
          )}
       </>

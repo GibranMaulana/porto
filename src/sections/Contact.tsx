@@ -1,0 +1,152 @@
+import { ScrambleText } from "@/components/ScrambleText"
+import { motion, number } from "framer-motion"
+import CommandLineMail from "@/components/CommandLineMail"
+import ScanlineOverlay from "@/components/ScanlineOverlay"
+
+interface linkData {
+   id: string  
+   name: string,
+   link: string
+}
+
+const CONTACT : linkData[] = [
+   {
+      id: "linkedIn",
+      name: 'LINKEDIN',
+      link: 'https://instagram.com/gbrn_zm'
+   },
+   {
+      id: "email",
+      name: 'EMAIL',
+      link: 'https://instagram.com/gbrn_zm'
+   },
+   {
+      id: "whatsapp",
+      name: 'WHATSAPP',
+      link: 'https://instagram.com/gbrn_zm'
+   },
+   
+]
+
+const SOSMED : linkData[] = [
+   {
+      id: "1",
+      name: "INSTAGRAM",
+      link: 'https://instagram.com/gbrn_zm'
+      
+   },
+   {
+      id: "2",
+      name: "X / TWITTER",
+      link: "https://x.com"
+   },
+]
+
+const INSPIRATION: linkData[] = [
+   {
+      id: '1',
+      name: "DARKROOM.ENGINEER",
+      link: "https://darkroom.engineering/" 
+   }
+]
+
+const TECHSTACK: linkData[] = [
+   {
+      id: '1',
+      name: "FRAMER_MOTION",
+      link: ""
+   },
+   {
+      id: '2',
+      name: "GSAP",
+      link: ""
+   },
+   {
+      id: '3',
+      name: "NEXTJS",
+      link: ""
+   },
+   {
+      id: '4',
+      name: "LARAVEL",
+      link: ""
+   },
+   {
+      id: '5',
+      name: "SANITY",
+      link: ""
+   }
+]
+
+export default function Contact() {
+   return (
+      <section className="z-0 sticky inset-0">
+         <div className="flex flex-col min-h-screen">
+            <div className="flex-1/2 flex flex-row">
+               <div className="flex items-center justify-center flex-1/3">
+                  <p className="font-inset-0space text-tertiary uppercase">whats on your mind, make it true</p>
+               </div>
+               <div className="flex flex-2/3 flex-col justify-evenly">
+                  <div className="grid grid-cols-3">
+                     <CommandLineMail />
+                  </div>
+                  <div className="grid grid-cols-4">
+                     <div className="flex flex-col gap-10">
+                        <p className="">CONTACT</p>
+                        <div className="flex flex-col gap-2">
+                        {(
+                           CONTACT.map((x) => (
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent ">
+                                 <ScrambleText text={x.name} /> 
+                              </a>
+                           ))
+                        )}
+                        </div>
+                     </div>
+                     <div className="flex flex-col gap-10">
+                        <p className="">SOCIAL MEDIA</p>
+                        <div className="flex flex-col gap-2">
+                        {(
+                           SOSMED.map((x) => (
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                                 <ScrambleText text={x.name} /> 
+                              </a>
+                           ))
+                        )}
+                        </div>
+                     </div>
+                     <div className="flex flex-col gap-10">
+                        <p className="">INSPIRATION</p>
+                        <div className="flex flex-col gap-2">
+                        {(
+                           INSPIRATION.map((x) => (
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                                 <ScrambleText text={x.name} /> 
+                              </a>
+                           ))
+                        )}
+                        </div>
+                     </div>
+                     <div className="flex flex-col gap-10">
+                        <p className="">TECH STACK</p>
+                        <div className="flex flex-col gap-2">
+                        {(
+                           TECHSTACK.map((x) => (
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                                 <ScrambleText text={x.name} /> 
+                              </a>
+                           ))
+                        )}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div className="relative flex-1/2 flex flex-row justify-center items-center bg-tertiary">
+               <ScanlineOverlay />
+               <ScrambleText className="text-primary text-[12rem] font-space z-0 " text="MAKE IT HAPPEN" /> 
+            </div>
+         </div>
+      </section>
+   )
+}

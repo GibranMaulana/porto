@@ -31,7 +31,7 @@ const PROJECTS: ProjectData[] = [
     id: "02",
     title: "PINGFEST 2025",
     description: "High-traffic concert ticketing platform.",
-    category: "LARAVEL / INERTIA / MOTION",
+    category: "LARAVEL / MOTION / LENIS",
     year: "2025",
     img: "/images/pingfest.png",
     href: "https://pingfest.id",
@@ -67,7 +67,7 @@ export default function Project() {
 
    return (
       <motion.section 
-         className="py-20 my-10"
+         className="py-20 my-10 px-10"
          initial={{ y: 0}}
          exit={{ y: "200%" }}
          viewport={{ 

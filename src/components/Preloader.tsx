@@ -21,7 +21,7 @@ export default function Preloader({isPageLoaded}: PreloaderProps) {
    return (
 
       <motion.div 
-         className="absolute inset-0 font-space text-accent flex justify-center items-center"
+         className="absolute inset-0 font-space text-accent flex justify-center items-center px-10"
          variants={preloader}
          initial="hidden"
          animate={isPageLoaded === 2  ? "visible" : "hidden"}

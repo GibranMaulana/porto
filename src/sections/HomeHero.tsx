@@ -49,7 +49,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
 
 
    return (
-      <section className="min-h-screen flex items-center" ref={sectionRef}>
+      <section className="min-h-screen flex items-center px-10" ref={sectionRef}>
          {/* <motion.h1 className="text-white fixed inset-0">{debug}</motion.h1> */}
          <BackgroundGrid />
          <div className="">
