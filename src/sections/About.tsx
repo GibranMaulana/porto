@@ -40,7 +40,7 @@ export default function AboutSection() {
       
       <div className="flex flex-col md:flex-row justify-between items-end border-b border-tertiary/30 pb-6 mb-12">
          <motion.div style={{ opacity }} className="flex flex-col">
-            <h2 className="text-6xl md:text-8xl font-manrope font-bold uppercase leading-none">
+            <h2 className="text-6xl md:text-8xl font-manrope uppercase leading-none">
                PROFILE
             </h2>
          </motion.div>

@@ -4,6 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import { GoSun } from "react-icons/go";
 import { AiOutlineSpotify } from "react-icons/ai";
 import { GoMoon } from "react-icons/go";
+import { IoClose } from "react-icons/io5";
 import { useTheme } from "next-themes";
 import useIsScrolling from "@/Hooks/useIsScrolling";
 
@@ -61,8 +62,15 @@ export default function Dock() {
                   animate="visible"
                   exit="exit"
                   className="bg-tertiary text-tertiary flex flex-col gap-3 p-2 rounded-sm"
-                  onHoverEnd={() => setIsDockOpen(false)}>
+                  >
                      
+                     <motion.div 
+                        className="p-2 bg-tertiary hover:cursor-pointer flex justify-center items-center" 
+                        onClick={() => setIsDockOpen(false)}
+                        >
+                        <IoClose className="text-primary size-6" />
+                     </motion.div>
+
                      <motion.div 
                         className="p-2 bg-primary hover:cursor-pointer overflow-hidden flex" 
                         onClick={() => toggleTheme()}
@@ -104,14 +112,14 @@ export default function Dock() {
                </motion.div>
             ) : (
                <motion.p 
-                  className="[writing-mode:vertical-rl] font-space text-primary px-2 bg-tertiary"
+                  className="[writing-mode:vertical-rl] font-space text-primary px-2 bg-tertiary hover:cursor-pointer"
                   initial={{ opacity: 0, x:20}}
                   animate={{ opacity: isScrolling ? 0 : 1, x: isScrolling ? 20 : 0}}
                   exit={{ opacity: 0, x:20}}
-                  onHoverStart={() => setIsDockOpen(true)}
+                  onClick={() => setIsDockOpen(true)}
                   
                   >
-                  MODULES
+                  DOCK
                </motion.p>
             )}
          </AnimatePresence>

@@ -5,6 +5,7 @@ import { ScrambleText } from "@/components/ScrambleText";
 import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
 import { useMediaQuery } from "@/Hooks/useMediaQuery";
+import ScanlineOverlay from "@/components/ScanlineOverlay";
 
 interface ProjectData {
   id: string;
@@ -80,10 +81,10 @@ export default function Project() {
          ref={proConRef}>
          <motion.div 
             layout
-            className={`${isAsList ? "" : "sticky top-5"}` + " z-40 py-2 flex justify-between items-center overflow-hidden mb-5"}
+            className={`${isAsList ? "" : "sticky top-5"}` + " z-40 py-8 md:py-2 flex justify-between items-center overflow-hidden mb-5"}
             >
             <motion.h1 
-               className="text-4xl md:text-8xl font-manrope font-bold uppercase leading-none" 
+               className="text-4xl md:text-6xl lg:text-8xl font-manrope uppercase leading-none" 
                style={{
                   y: headerY, 
                   opacity: opacityHeader,
@@ -103,15 +104,15 @@ export default function Project() {
             <motion.div className="relative flex justify-between hover:cursor-pointer border border-tertiary backdrop-blur-xl" style={{y: headerY, opacity: opacityHeader}} >
                <motion.div 
                   layout
-                  className="absolute inset-y-0 bg-tertiary w-1/2  mix-blend-difference border border-tertiary"
+                  className="absolute inset-y-0 bg-tertiary w-1/2 border border-tertiary"
                   animate={isAsList ? {right: 0} : {}}
                />
-               <motion.div className={`font-space text-tertiary px-2`} onClick={() => toggleList(false)}>
+               <motion.div className={`font-space ${isAsList ? 'text-tertiary' : 'text-primary'} px-2 z-10`} onClick={() => toggleList(false)}>
                   <p>
                      GRID
                   </p>
                </motion.div>
-               <motion.div className={`font-space text-tertiary px-2`} onClick={() => toggleList(true)}>
+               <motion.div className={`font-space ${isAsList ? 'text-primary' : 'text-tertiary'} z-10 px-2`} onClick={() => toggleList(true)}>
                   <p>
                      LIST
                   </p>
@@ -142,6 +143,7 @@ export default function Project() {
 
 function ProjectGrid({id, img, title, href, description, role, category } : ProjectData) {
    const isMobile = useMediaQuery("(max-width: 640px)");
+   const isTablet = useMediaQuery("(max-width: 768px)");
    const ref = useRef(null);
    const { scrollYProgress: sectionScroll } = useScroll({
       target: ref,
@@ -196,7 +198,7 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
    const lineProgress = useTransform(lineEffect, [0, 0.3], [0, 1]);
 
    return (
-      <motion.div ref={ref} className="py-2 sm:py-10 grid grid-cols-1 md:grid-cols-2 gap-10 border-b border-muted/10">
+      <motion.div ref={ref} className="py-2 sm:py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 border-b border-muted/10">
          <motion.div 
             className="relative flex h-[300px] md:h-[450px] overflow-hidden"
             style={{ y: paralaxEffectCard }}
@@ -215,6 +217,8 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
                {scrambleOverlay && (
                   <ScrambleText text="REDACTED" active={true} className="text-5xl font-space text-primary" />
                )}
+               
+               <ScanlineOverlay />
             </motion.div>
          </motion.div>
 
@@ -250,7 +254,7 @@ function ProjectGrid({id, img, title, href, description, role, category } : Proj
 
             <motion.div 
                ref={lineRef}
-               className={`absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30 ${isMobile ? "opacity-0" : ""}`}
+               className={`absolute left-0 top-0 bottom-0 w-px bg-tertiary origin-top z-30 ${isTablet ? "opacity-0" : ""}`}
                style={{scaleY: lineProgress}}
             />
             <motion.div 

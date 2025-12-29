@@ -80,7 +80,7 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                   )}
                   <motion.div
                      layout
-                     className="flex gap-2 sm:gap-6 whitespace-nowrap" 
+                     className="w-full md:w-auto flex flex-row gap-2 sm:gap-6 whitespace-nowrap justify-between md:justify-start" 
                   >
                      {LINKS.map((x, i) => (
                         <ScrambleText 
