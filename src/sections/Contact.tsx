@@ -85,7 +85,7 @@ const TECHSTACK: linkData[] = [
 
 export default function Contact() {
    return (
-      <section className="z-0 sticky inset-0 scroll-mt-[-100dvh]" id="contact">
+      <section className="z-0 sticky inset-0 scroll-mt-[-200dvh]" id="contact">
          <div className="flex flex-col min-h-screen">
             <div className="flex-1/2 flex flex-col sm:flex-row px-2">
                <div className="flex items-center justify-center flex-1/3 px-4">
@@ -149,7 +149,7 @@ export default function Contact() {
             </div>
             <div className="relative flex-1/2 flex flex-row justify-center items-center bg-tertiary">
                <ScanlineOverlay />
-               <ScrambleText className="text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[12rem] font-space z-0 " text="MAKE IT HAPPEN" /> 
+               <ScrambleText className="text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[12rem] font-space z-0 " text="MAKE_IT_HAPPEN" /> 
             </div>
          </div>
       </section>

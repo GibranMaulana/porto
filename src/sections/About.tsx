@@ -6,14 +6,14 @@ import { ScrambleText } from "@/components/ScrambleText";
 import ScanlineOverlay from "@/components/ScanlineOverlay";
 
 const SKILLS = [
-  "NEXT.JS", "TYPESCRIPT / JAVASCRIPT", "TAILWIND", "FRAMER MOTION",
+  "NEXT.JS", "TYPESCRIPT / JAVASCRIPT", "TAILWIND", "FRAMER_MOTION",
   "NODE.JS", "POSTGRESQL", "LARAVEL", "SANITY", "GSAP", 
 ];
 
 const EXPERIENCE = [
-  { year: "2025 - PRES", role: "FREELANCE DEVELOPER", company: "SELF_EMPLOYED" },
-  { year: "2025", role: "TECHNOLOGY STAFF", company: "PINGFEST"},
-  { year: "JAN 2025 - DES 2025", role: "TECHNOLOGY DEVELOPMENT STAFF", company: "BEM_FATISDA_UNS" },
+  { year: "DES 2025 - PRES", role: "FREELANCE DEVELOPER", company: "SELF_EMPLOYED" },
+  { year: "JUN - AUG | 2025", role: "TECHNOLOGY STAFF", company: "PINGFEST"},
+  { year: "JAN - DES | 2025", role: "TECHNOLOGY DEVELOPMENT STAFF", company: "BEM_FATISDA_UNS" },
 ];
 
 export default function AboutSection() {
