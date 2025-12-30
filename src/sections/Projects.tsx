@@ -71,6 +71,7 @@ export default function Project() {
 
    return (
       <motion.section 
+         id="projects"
          className="py-20 my-10 px-2 sm:px-10"
          initial={{ y: 0}}
          exit={{ y: "200%" }}
@@ -307,7 +308,7 @@ function ProjectList({ id, img, title, href, role, category, year }: ProjectData
         transition={{ duration: 0.4 }}
       >
         <div className="flex items-baseline gap-2 md:gap-12 relative z-20">
-           <span className="font-space text-xs text-muted group-hover:text-primary/60 transition-colors">
+           <span className="font-space text-xs text-tertiary group-hover:text-primar transition-colors">
               /{id}
            </span>
            <h3 className="text-3xl md:text-5xl font-manrope uppercase group-hover:translate-x-4 transition-transform duration-300">
@@ -317,11 +318,11 @@ function ProjectList({ id, img, title, href, role, category, year }: ProjectData
 
         <div className="flex items-center gap-4 md:gap-12 md:pr-4 relative z-20">
            <div className="hidden md:flex flex-col items-end text-right">
-              <span className="font-space text-[10px] uppercase tracking-widest opacity-60">Tech</span>
+              <span className="font-space text-[10px] uppercase text-accent tracking-widest">Tech</span>
               <span className="font-space text-xs font-bold">{category}</span>
            </div>
            <div className="hidden lg:flex flex-col items-end text-right">
-              <span className="font-space text-[10px] uppercase tracking-widest opacity-60">Role</span>
+              <span className="font-space text-[10px] uppercase tracking-widest text-accent">Role</span>
               <span className="font-space text-xs font-bold">{role[0]}</span>
            </div>
            <span className="font-space text-xs border border-tertiary px-3 py-1 group-hover:border-primary/40">

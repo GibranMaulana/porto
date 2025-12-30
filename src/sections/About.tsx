@@ -6,13 +6,14 @@ import { ScrambleText } from "@/components/ScrambleText";
 import ScanlineOverlay from "@/components/ScanlineOverlay";
 
 const SKILLS = [
-  "NEXT.JS 14", "TYPESCRIPT", "TAILWIND", "FRAMER MOTION",
+  "NEXT.JS", "TYPESCRIPT / JAVASCRIPT", "TAILWIND", "FRAMER MOTION",
   "NODE.JS", "POSTGRESQL", "LARAVEL", "SANITY", "GSAP", 
 ];
 
 const EXPERIENCE = [
-  { year: "2024 - PRES", role: "FREELANCE DEVELOPER", company: "SELF_EMPLOYED" },
-  { year: "2023 - 2024", role: "TECHNOLOGY DEVELOPMENT STAFF", company: "BEM_FATISDA_UNS" },
+  { year: "2025 - PRES", role: "FREELANCE DEVELOPER", company: "SELF_EMPLOYED" },
+  { year: "2025", role: "TECHNOLOGY STAFF", company: "PINGFEST"},
+  { year: "JAN 2025 - DES 2025", role: "TECHNOLOGY DEVELOPMENT STAFF", company: "BEM_FATISDA_UNS" },
 ];
 
 export default function AboutSection() {
@@ -32,7 +33,8 @@ export default function AboutSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
-    <motion.section 
+    <motion.section
+      id="about" 
       ref={containerRef} 
       className="min-h-screen py-20 px-4 md:px-10 bg-primary text-secondary overflow-hidden relative z-10 border-b border-tertiary"
       style={{ y: revealFooter }}

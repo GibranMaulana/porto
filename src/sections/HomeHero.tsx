@@ -49,7 +49,7 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
 
 
    return (
-      <section className="min-h-screen flex items-center px-2 sm:px-10" ref={sectionRef}>
+      <section id="hero" className="min-h-screen flex items-center px-2 sm:px-10" ref={sectionRef}>
          {/* <motion.h1 className="text-white fixed inset-0">{debug}</motion.h1> */}
          <BackgroundGrid />
          <div className="">
@@ -72,9 +72,9 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                         </motion.span>
                      </motion.div>
                   </motion.div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-3xl sm:text-7xl block" >Design driven.</motion.span></div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-4xl sm:text-8xl block">Logic backed.</motion.span></div>
-                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-5xl sm:text-9xl block ">User <span className="font-normal font-space text-tertiary">FOCUSED.</span></motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl block" >Design driven.</motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl block">Logic backed.</motion.span></div>
+                  <div className="pb-3 overflow-hidden"><motion.span variants={titleItem} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl block ">User <span className="font-normal font-space text-tertiary">FOCUSED.</span></motion.span></div>
                </motion.h1>
                <div className="overflow-hidden">
                   <motion.div
@@ -85,12 +85,12 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
                      transition={{ delay: 1.3, duration: 1, ease: [0.16, 1, 0.3 ,1] as const}}>
                      <Button
                         text="INITIATE_COLLAB"
-                        href="#footer"
+                        href="#contact"
                         className="font-space text-primary bg-tertiary inline-block"
                      />
                      <Button 
                         text="VIEW_PROJECTS" 
-                        href="#projectsSection"
+                        href="#projects"
                         className="font-space border border-tertiary text-tertiary inline-block"
                      />
                   </motion.div>

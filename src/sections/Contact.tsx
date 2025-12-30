@@ -13,17 +13,17 @@ const CONTACT : linkData[] = [
    {
       id: "linkedIn",
       name: 'LINKEDIN',
-      link: 'https://instagram.com/gbrn_zm'
+      link: 'https://www.linkedin.com/in/gibran-maulana-azmi'
    },
    {
       id: "email",
       name: 'EMAIL',
-      link: 'https://instagram.com/gbrn_zm'
+      link: "mailto:narbiganaluam@gmail.com"
    },
    {
       id: "whatsapp",
       name: 'WHATSAPP',
-      link: 'https://instagram.com/gbrn_zm'
+      link: 'https://wa.me/6281385927668'
    },
    
 ]
@@ -38,8 +38,13 @@ const SOSMED : linkData[] = [
    {
       id: "2",
       name: "X / TWITTER",
-      link: "https://x.com"
+      link: "https://x.com/azmi_nkm"
    },
+   {
+      id:"3",
+      name: "GITHUB",
+      link: 'https://github.com/GibranMaulana'
+   }
 ]
 
 const INSPIRATION: linkData[] = [
@@ -54,33 +59,33 @@ const TECHSTACK: linkData[] = [
    {
       id: '1',
       name: "FRAMER_MOTION",
-      link: ""
+      link: "https://motion.dev/"
    },
    {
       id: '2',
       name: "GSAP",
-      link: ""
+      link: "https://gsap.com/"
    },
    {
       id: '3',
       name: "NEXTJS",
-      link: ""
+      link: "https://nextjs.org/"
    },
    {
       id: '4',
       name: "LARAVEL",
-      link: ""
+      link: "https://laravel.com/"
    },
    {
       id: '5',
-      name: "SANITY",
-      link: ""
+      name: "REACT",
+      link: "https://react.dev/"
    }
 ]
 
 export default function Contact() {
    return (
-      <section className="z-0 sticky inset-0">
+      <section className="z-0 sticky inset-0 scroll-mt-[-100dvh]" id="contact">
          <div className="flex flex-col min-h-screen">
             <div className="flex-1/2 flex flex-col sm:flex-row px-2">
                <div className="flex items-center justify-center flex-1/3 px-4">
@@ -96,7 +101,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-2">
                         {(
                            CONTACT.map((x) => (
-                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent ">
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent" target="_blank" rel="noopener noreferrer">
                                  <ScrambleText text={x.name} /> 
                               </a>
                            ))
@@ -108,7 +113,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-2">
                         {(
                            SOSMED.map((x) => (
-                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent" target="_blank" rel="noopener noreferrer">
                                  <ScrambleText text={x.name} /> 
                               </a>
                            ))
@@ -120,7 +125,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-2">
                         {(
                            INSPIRATION.map((x) => (
-                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent" target="_blank" rel="noopener noreferrer">
                                  <ScrambleText text={x.name} /> 
                               </a>
                            ))
@@ -132,7 +137,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-2">
                         {(
                            TECHSTACK.map((x) => (
-                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent">
+                              <a key={x.id} href={x.link} className="w-fit text-tertiary font-space hover:text-accent" target="_blank" rel="noopener noreferrer">
                                  <ScrambleText text={x.name} /> 
                               </a>
                            ))

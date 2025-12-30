@@ -8,7 +8,23 @@ interface HeaderProps {
    isPageLoaded: number;
 }
 
-const LINKS = ['HOME', 'PROJECTS', 'ABOUT', 'LETS_LINK'];
+
+
+const LINKS = [
+   {
+      name: "HOME",
+      href: "#hero"
+   }, {
+      name: 'PROJECTS',
+      href: '#projects'
+   }, {
+      name: 'ABOUT',
+      href: "#about"
+   }, {
+      name: 'LETS_LINK',
+      href: '#contact'
+   }
+];
 
 
 export default function Header({ isPageLoaded }: HeaderProps) {
@@ -84,12 +100,12 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                      className="w-full md:w-auto flex flex-row gap-2 sm:gap-6 whitespace-nowrap justify-between md:justify-start" 
                   >
                      {LINKS.map((x, i) => (
-                        <ScrambleText 
-                           key={i} 
-                           className={`font-space ${textStyle} hover:cursor-pointer z-10`} 
-                           text={x} 
-                           active={keepScrambling} 
-                        />
+                        <a key={i} href={x.href} className={`font-space ${textStyle} hover:cursor-pointer z-10`}>                               
+                           <ScrambleText 
+                              text={x.name} 
+                              active={keepScrambling} 
+                           />
+                        </a>
                      ))}
                   </motion.div>
 

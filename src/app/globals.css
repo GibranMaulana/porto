@@ -11,6 +11,10 @@
    --color-error: hsl(0, 70%, 45%);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .dark {
    --color-primary: hsl(160, 17%, 7%);
    --color-secondary: hsl(106, 50%, 90%);
