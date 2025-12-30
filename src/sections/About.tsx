@@ -68,7 +68,7 @@ export default function AboutSection() {
          </div>
 
 
-         <div className="md:col-span-4 border border-muted/20 bg-secondary/5 relative overflow-hidden group min-h-[300px]">
+         <div className="place-content-center md:col-span-4 border border-muted/20 bg-secondary/5 relative max-h-none sm:max-h-52 lg:max-h-none overflow-hidden group min-h-[300px] max-w-none sm:max-w-52 lg:max-w-none">
             <img 
                src="/images/face.jpg" 
                alt="Profile" 
@@ -77,7 +77,7 @@ export default function AboutSection() {
             
             <ScanlineOverlay />
             <div className="absolute bottom-4 left-4 bg-tertiary text-primary px-3 py-1 font-space text-xs font-bold uppercase z-20">
-               Status: Online
+               Status: Student At Sebelas Maret University
             </div>
          </div>
 
@@ -109,7 +109,7 @@ export default function AboutSection() {
                   <div key={i} className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-muted/10 pb-4 group cursor-default">
                      <div>
                         <h4 className="font-manrope text-xl font-bold group-hover:text-tertiary transition-colors">{exp.role}</h4>
-                        <span className="font-space text-xs text-muted">{exp.company}</span>
+                        <span className="font-space text-xs text-accent">{exp.company}</span>
                      </div>
                      <span className="font-space text-sm font-bold mt-2 md:mt-0">{exp.year}</span>
                   </div>

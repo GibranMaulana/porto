@@ -11,8 +11,6 @@ import useIsScrolling from "@/Hooks/useIsScrolling";
 export default function Dock() {
    const [mounted, setMounted] = useState(false);
    const [isDockOpen, setIsDockOpen] = useState(false); 
-   const [isGithubOpen, setIsGithubOpen] = useState(false);
-   const [isSpotifyOpen, setIsSpotifyOpen] = useState(false);
    const { theme, setTheme, resolvedTheme } = useTheme();
    const isScrolling = useIsScrolling(1000);
 
@@ -50,7 +48,7 @@ export default function Dock() {
    return (
       <motion.div
          layout
-         className="flex flex-col fixed right-0 pr-5 justify-center z-30 min-h-screen"
+         className="flex flex-col fixed right-0 pr-5 justify-center min-h-screen z-50"
          >
          <AnimatePresence mode="wait">
             {isDockOpen ? (
@@ -98,17 +96,20 @@ export default function Dock() {
                         </AnimatePresence>
                         
                      </motion.div>
-                     <motion.div 
+                     <motion.a 
                         className="bg-primary p-2"
+                        href="https://github.com/GibranMaulana"
                         
                         >
+                        
                         <FaGithub className="size-6" />
-                     </motion.div>
-                     <motion.div 
+                     </motion.a>
+                     <motion.a
                         className="bg-primary p-2"
+                        href="https://open.spotify.com/user/316tigu3w53kk7thybeujqgoa45u?si=33f2e1a676a5439d"
                         >
                         <AiOutlineSpotify className="size-6" />
-                     </motion.div>      
+                     </motion.a>      
                </motion.div>
             ) : (
                <motion.p 

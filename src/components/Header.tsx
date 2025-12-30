@@ -14,6 +14,7 @@ const LINKS = ['HOME', 'PROJECTS', 'ABOUT', 'LETS_LINK'];
 export default function Header({ isPageLoaded }: HeaderProps) {
 
    const isMobile = useMediaQuery("(max-width: 640px)")
+   const isTablet = useMediaQuery("(max-width: 768px)")
 
    const [isScrolled, setIsScrolled] = useState(false);
    const { scrollY } = useScroll();
@@ -70,7 +71,7 @@ export default function Header({ isPageLoaded }: HeaderProps) {
                      )}
                   </AnimatePresence>
 
-                  {!isMobile && (
+                  {!isTablet && (
                      <motion.div 
                         layout 
                         className="whitespace-nowrap z-10" 
