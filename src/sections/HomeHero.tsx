@@ -45,12 +45,10 @@ export default function HomeHero({isPageLoaded}: HomeHeroProps) {
    const heroButtonFade = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
    const subtitleFade = useTransform(scrollYProgress, [0.1, 0.3], [1, 0]);
    const subtitleMove = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "-200%"]);
-   // const debug = useTransform(scrollYProgress, [0, 1], [0, 1])
 
 
    return (
       <section id="hero" className="min-h-screen flex items-center px-2 sm:px-10" ref={sectionRef}>
-         {/* <motion.h1 className="text-white fixed inset-0">{debug}</motion.h1> */}
          <BackgroundGrid />
          <div className="">
             <div>
