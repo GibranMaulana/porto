@@ -46,7 +46,7 @@ const CommandLineMail = () => {
     <div className="w-full max-w-sm font-space">
       <div className="flex justify-between items-end mb-2">
         <p className="text-xs text-tertiary">
-          {"> SEND_MESSAGE"}
+          {"> SEND_ME_MESSAGE"}
         </p>
         <p className={`text-[10px] ${status === "ERROR" ? "text-red-500" : "text-accent"}`}>
           [{status}]

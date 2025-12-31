@@ -85,7 +85,7 @@ export default function AboutSection() {
 
 
          <div className="md:col-span-5 border border-muted/20 p-6 md:p-8 flex flex-col">
-            <ScrambleText className="font-space text-xs text-tertiary uppercase tracking-widest mb-6" text="TECT STACK" />
+            <ScrambleText className="font-space text-xs text-tertiary uppercase tracking-widest mb-6" text="TECT_STACK" />
             
             <div className="flex flex-wrap gap-2 content-start">
                {SKILLS.map((skill, i) => (

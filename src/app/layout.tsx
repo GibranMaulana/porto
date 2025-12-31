@@ -21,7 +21,7 @@ export const metadata: Metadata = {
    openGraph: {
      title: "Gibran Maulana Azmi | Motion Enthusiast",
      description: "Porto of Gibran Maulana Azmi V.1",
-     url: "https://gibran.dev", //need to change this 
+     url: "https://gibranmaulana.me", 
      siteName: "Gibran Maulana",
      images: [
        {

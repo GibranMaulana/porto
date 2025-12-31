@@ -15,6 +15,16 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background-color: var(--color-tertiary); 
+  color: var(--color-primary);             
+}
+
+::-moz-selection {
+  background-color: var(--color-tertiary);
+  color: var(--color-primary);
+}
+
 .dark {
    --color-primary: hsl(160, 17%, 7%);
    --color-secondary: hsl(106, 50%, 90%);
