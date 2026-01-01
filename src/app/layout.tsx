@@ -25,7 +25,7 @@ export const metadata: Metadata = {
      siteName: "Gibran Maulana",
      images: [
        {
-         url: "/image.png", 
+         url: "/photo-profile-2.jpeg", 
          width: 1200,
          height: 630,
        },
