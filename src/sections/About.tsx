@@ -72,7 +72,7 @@ export default function AboutSection() {
 
          <div className="place-content-center md:col-span-4 border border-muted/20 bg-secondary/5 relative max-h-none sm:max-h-52 lg:max-h-none overflow-hidden group min-h-[300px] max-w-none sm:max-w-52 lg:max-w-none">
             <img 
-               src="/images/face.jpg" 
+               src="/images/photo-profile-2.jpeg" 
                alt="Profile" 
                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-110"
             />
