@@ -32,7 +32,7 @@ const PROJECTS: ProjectData[] = [
   {
     id: "02",
     title: "PINGFEST 2025",
-    description: "High-traffic concert ticketing platform.",
+    description: "High-traffic Seminar ticketing platform for pingfest 2025.",
     category: "LARAVEL / MOTION / LENIS",
     year: "2025",
     img: "/images/pingfest.png",
@@ -42,7 +42,7 @@ const PROJECTS: ProjectData[] = [
   {
     id: "03",
     title: "FATISDA E-VOTING",
-    description: "Secure real-time voting system for campus elections.",
+    description: "Secure voting system for campus elections.",
     category: "LARAVEL / GSAP",
     year: "2025",
     img: "/images/pemilubemfatisdauns.png",
