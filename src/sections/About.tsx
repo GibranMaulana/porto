@@ -1,9 +1,10 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { GoArrowUpRight, GoDownload } from "react-icons/go";
 import { ScrambleText } from "@/components/ScrambleText";
 import ScanlineOverlay from "@/components/ScanlineOverlay";
+import { div } from "motion/react-client";
 
 const SKILLS = [
   "NEXT.JS", "TYPESCRIPT / JAVASCRIPT", "TAILWIND", "FRAMER_MOTION",
@@ -15,6 +16,19 @@ const EXPERIENCE = [
   { year: "JUN - AUG | 2025", role: "TECHNOLOGY STAFF", company: "PINGFEST"},
   { year: "JAN - DES | 2025", role: "TECHNOLOGY DEVELOPMENT STAFF", company: "BEM_FATISDA_UNS" },
 ];
+
+const PROFILE = [
+   {label: "NAME", value: "GIBRAN MAULANA AZMI"},
+   {label: "ROLE", value: "FRONTEND DEVELOPER"},
+   {label: "LOCATION", value: "JAKARTA, ID"},
+   {label: "EDUCATION", value: "COMP-SCI, UNS"},
+]
+
+interface BioStatData {
+   label: string,
+   value: string, 
+   variants: Variants
+}
 
 export default function AboutSection() {
   const containerRef = useRef(null);
@@ -31,6 +45,28 @@ export default function AboutSection() {
    const revealFooter = useTransform(revealFooterProgress, [0, 1], ["0px", "-100dvh"]);
 
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
+  const [isShowedBio, setIsShowedBio] = useState(true);
+  
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, 
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.3 }
+    }
+  };
 
   return (
     <motion.section
@@ -52,16 +88,35 @@ export default function AboutSection() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
          
          <div className="md:col-span-8 flex flex-col justify-between min-h-[300px] border border-muted/20 p-6 md:p-10 relative group">
-            <div className="absolute top-4 right-4">
-               <GoArrowUpRight className="text-4xl text-tertiary opacity-0 group-hover:opacity-100 group-hover:rotate-45 transition-all duration-500" />
+            <div className="flex items-center justify-between">
+               <ScrambleText className="font-space text-xs text-tertiary uppercase tracking-widest" text="BIO" />
+               <div className="flex border border-tertiary text-sm hover:cursor-pointer" >
+                  <div onClick={() => setIsShowedBio(false)} className={`font-space ${!isShowedBio ? "bg-tertiary text-primary" : "bg-primary text-tertiary"} px-2`}>
+                     <ScrambleText text="PROFILE" />
+                  </div>
+                  <div onClick={() => setIsShowedBio(true)} className={`font-space ${isShowedBio ? "bg-tertiary text-primary" : "bg-primary text-tertiary"} px-2`} >
+                     <ScrambleText text="BIO" hover={true} />
+                  </div>
+               </div>
             </div>
-            
-            <ScrambleText className="font-space text-xs text-tertiary uppercase tracking-widest mb-6" text="BIO" />
-            
-            <p className="text-2xl md:text-4xl font-manrope leading-tight indent-12">
-               I am a <span className="font-space text-tertiary uppercase">web developer</span> focused on building scalable systems with motion-driven interfaces. 
-               bridging the gap between <span className="font-space uppercase text-tertiary">FUNCTIONALITY</span> and <span className="font-space uppercase text-tertiary">fluid interaction</span>.
-            </p>
+
+            {isShowedBio ? (
+               <p className="text-2xl md:text-4xl font-manrope leading-tight indent-12">
+                  I am a <span className="font-space text-tertiary uppercase">web developer</span> focused on building scalable systems with motion-driven interfaces. 
+                  bridging the gap between <span className="font-space uppercase text-tertiary">FUNCTIONALITY</span> and <span className="font-space uppercase text-tertiary">fluid interaction</span>.
+               </p>
+            ) : (
+               <motion.div 
+                  className="text-sm sm:text-base lg:text-2xl"
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: "all"}}>
+                  {PROFILE.map((x, i) => (
+                     <BioStat key={i} label={x.label} value={x.value} variants={itemVariants} /> 
+                  ))}
+               </motion.div>
+            )}
 
             <div className="mt-8 flex gap-4">
                <div className="h-px bg-secondary flex-1 self-center" />
@@ -122,4 +177,17 @@ export default function AboutSection() {
       </div>
     </motion.section>
   );
+}
+
+function BioStat({label, value, variants}: BioStatData) {
+
+   return (
+      <motion.div 
+         className="flex gap-2"
+         variants={variants}
+      >
+         <p className="font-space">{label + ":"} </p>
+         <ScrambleText className="font-space text-tertiary" text={value} />
+      </motion.div>
+   )
 }

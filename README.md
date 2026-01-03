@@ -1,1 +1,3 @@
-belum jadi
+mostly jadi
+
+gibranmaulana.me
